@@ -1,6 +1,5 @@
 <template>
- 
-  <router-view />
+  <h2>Dashboard</h2>
 </template>
 
 <script setup>
