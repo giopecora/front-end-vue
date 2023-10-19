@@ -3,9 +3,14 @@
   <router-view />
 </template>
 
-<script setup>
-
+<script>
+export default {
+  mounted(){
+    this.$store.commit('initialiseStore')
+  }
+}
 </script>
+
 
 <style lang="scss" scoped>
 

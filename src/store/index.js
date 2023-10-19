@@ -8,12 +8,21 @@ export default createStore({
   getters: {
   },
   mutations: {
-    setAuth (state, payload) {
-      if (payload) {
+    setAuth (state, token) {
+      if (token) {
         state.isAuth = true
+        localStorage.setItem('token', token);
         return
       }
       state.isAuth = false
+    },
+    initialiseStore(state) {
+      if(localStorage.getItem('token')){
+        let token = localStorage.getItem('token');
+        if (token) {
+          state.isAuth = true
+        }
+       }
     }
   },
   actions: {

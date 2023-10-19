@@ -68,8 +68,9 @@ export default {
 
             if (data.access_token) {
                 this.output = "Authentication complete"
-                this.$store.commit(`setAuth`, true);
+                this.$store.commit(`setAuth`, data.access_token);
                 this.output = "Authentication complete."
+                
                 this.$router.push('/dashboard')
             } else {
                 this.$store.commit(`setAuth`, false);

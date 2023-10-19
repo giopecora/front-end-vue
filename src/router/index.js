@@ -11,7 +11,9 @@ const router = createRouter({
     {
         path: '/',
         name: 'home',
-        component: HomeView
+        component: HomeView,
+        meta: { requiresAuth: true }
+
     },
     {
         path: '/login',
@@ -30,19 +32,22 @@ const router = createRouter({
 
 
 router.beforeEach(async (to, from, next) => {
-
-    if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (to.meta?.requiresAuth) {
         
-        const isAuthenticated = store.state.isAuth;
+        if (to.matched.some(record => record.meta.requiresAuth)) {
+            
+            const isAuthenticated = store.state.isAuth;
 
-        if (!isAuthenticated) {
-            next('/login');
+            if (!isAuthenticated) {
+                next('/login');
+            } else {
+                next();
+            }
         } else {
             next();
         }
-    } else {
-        next();
     }
+    next();
 })
 
 export default router
