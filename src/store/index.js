@@ -3,7 +3,8 @@ import auth from './auth/index'
 
 export default createStore({
   state: {
-    isAuth: false
+    isAuth: false,
+    token: ''
   },
   getters: {
   },
@@ -11,6 +12,7 @@ export default createStore({
     setAuth (state, token) {
       if (token) {
         state.isAuth = true
+        state.token = token
         localStorage.setItem('token', token);
         return
       }
@@ -20,6 +22,7 @@ export default createStore({
       if(localStorage.getItem('token')){
         let token = localStorage.getItem('token');
         if (token) {
+          state.token = token
           state.isAuth = true
         }
        }

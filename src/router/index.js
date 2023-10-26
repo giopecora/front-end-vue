@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Login from  '../views/Login.vue'
 import Dashboard from  '../views/Dashboard.vue'
 import store from '../store'
+import checkToken from '../services/auth'
 
 
 const router = createRouter({
@@ -37,8 +38,8 @@ router.beforeEach(async (to, from, next) => {
         if (to.matched.some(record => record.meta.requiresAuth)) {
             
             const isAuthenticated = store.state.isAuth;
-
-            if (!isAuthenticated) {
+            const verifyToken = await checkToken();
+            if (!isAuthenticated || !verifyToken) {
                 next('/login');
             } else {
                 next();
